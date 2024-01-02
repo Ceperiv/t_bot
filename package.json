@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:t_bot": "node dist/t_bot/server/server.mjs",
-    "dev": "npx wrangler pages dev /functions"
+    "dev": "npx wrangler pages dev -- ng s"
   },
   "private": true,
   "dependencies": {
@@ -25,6 +25,7 @@
     "express": "^4.18.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "wrangler": "^3.22.1",
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
