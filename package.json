@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:t_bot": "node dist/t_bot/server/server.mjs"
+    "serve:ssr:t_bot": "node dist/t_bot/server/server.mjs",
+    "dev": "npx wrangler pages dev /functions"
   },
   "private": true,
   "dependencies": {
