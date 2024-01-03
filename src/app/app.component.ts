@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 import {ApiService} from "./services/api.service";
@@ -10,17 +10,19 @@ import {ApiService} from "./services/api.service";
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
-export class AppComponent{
+export class AppComponent {
     title = 't_bot';
-    isClicked:boolean = false;
+    isClicked: boolean = false;
     apiService = inject(ApiService);
-    data$ = this.apiService.getData();
+    userName$ = this.apiService.getTelegramUser();
     telegramData = this.apiService.telegramData();
 
-constructor() {
-    // console.log(inject(ApiService).getData(), 22222)
-}
-onClick() {
+
+    constructor() {
+        // console.log(inject(ApiService).getData(), 22222)
+    }
+
+    onClick() {
         this.isClicked = !this.isClicked
-}
+    };
 }

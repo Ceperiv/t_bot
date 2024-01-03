@@ -1,4 +1,3 @@
-<pre>{{data$ | async | json}}</pre>
-<pre>{{telegramData | json}}</pre>
+<div><h2>Welcome <span *ngIf="userName$ | async as  user">{{user}}</span> to the chat bot</h2></div>
 <button (click)="onClick()">Click</button>
-<pre *ngIf="isClicked">{{data$ | async | json}}</pre>
+<pre *ngIf="isClicked">{{ telegramData | json }}</pre>
