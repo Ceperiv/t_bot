@@ -27,6 +27,7 @@ yarn-error.log
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+.dev.vars
 
 # Miscellaneous
 /.angular/cache
@@ -41,4 +42,3 @@ testem.log
 .DS_Store
 Thumbs.db
 
-.dev.vars
