@@ -12,11 +12,13 @@ import {ApiService} from "./services/api.service";
 })
 export class AppComponent{
     title = 't_bot';
-    data$ = inject(ApiService).getData()
-    isClicked:boolean = false
+    isClicked:boolean = false;
+    apiService = inject(ApiService);
+    data$ = this.apiService.getData();
+    telegramData = this.apiService.telegramData();
 
 constructor() {
-    console.log(inject(ApiService).getData(), 22222)
+    // console.log(inject(ApiService).getData(), 22222)
 }
 onClick() {
         this.isClicked = !this.isClicked
