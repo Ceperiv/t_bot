@@ -21,7 +21,6 @@ export class AppComponent {
 
 
     constructor() {
-        // console.log(inject(ApiService).getData(), 22222)
     }
 
     onClick() {
