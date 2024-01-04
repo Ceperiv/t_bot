@@ -1,6 +1,8 @@
 import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
+import {Observable} from "rxjs";
+
 import {ApiService} from "./services/api.service";
 
 @Component({
@@ -14,7 +16,7 @@ export class AppComponent {
     title = 't_bot';
     isClicked: boolean = false;
     apiService = inject(ApiService);
-    userName$ = this.apiService.getTelegramUser();
+    user$:Promise<Observable<any>> = this.apiService.getTelegramUser();
     telegramData = this.apiService.telegramData();
 
 
