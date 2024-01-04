@@ -16,7 +16,7 @@ export class AppComponent {
     title = 't_bot';
     isClicked: boolean = false;
     apiService = inject(ApiService);
-    user$:Promise<Observable<any>> = this.apiService.getTelegramUser();
+    user$ = this.apiService.getTelegramUser();
     telegramData = this.apiService.telegramData();
 
 

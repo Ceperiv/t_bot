@@ -1,4 +1,4 @@
-import {Injectable, PLATFORM_ID, Inject} from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {isPlatformBrowser} from '@angular/common';
 import {map} from "rxjs";
@@ -34,13 +34,17 @@ export class ApiService {
         return this.http.get<any>(url);
     };
 
-   async getTelegramUser() {
+    async getTelegramUser() {
         const hash = isPlatformBrowser(this.platformId) && window?.Telegram?.WebApp?.initData;
         const url = '/api/telegram-validate';
         const data = {
             hash
         }
-        return this.http.post(url, data).pipe(map(() => window?.Telegram?.WebApp?.initDataUnsafe?.user || 'Unknown'
+        let user: any = null;
+        this.http.post(url, data).pipe(map(() => user = window?.Telegram?.WebApp?.initDataUnsafe?.user || 'Unknown'
         ))
+        return await user
+
+
     };
 }
