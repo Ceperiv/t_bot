@@ -9,7 +9,7 @@ function transformInitData(initData: string): TransformInitData {
 
 async function generateHex(data: TransformInitData, botToken: string): Promise<string> {
     const encoder = new TextEncoder();
-    const checkString = await Object.keys(data)
+    const checkString = Object.keys(data)
         .filter((key) => key !== 'hash')
         .map((key) => `${key}=${data[key]}`)
         .sort()
@@ -39,11 +39,11 @@ async function generateHex(data: TransformInitData, botToken: string): Promise<s
         encoder.encode(checkString)
     );
 
-    const hex = [...new Uint8Array(signature)]
+    return [...new Uint8Array(signature)]
         .map((b) => b.toString(16).padStart(2, '0'))
         .join('');
 
-    return hex;
+
 }
 
 export async function onRequestPost({ env, request }: any) {
