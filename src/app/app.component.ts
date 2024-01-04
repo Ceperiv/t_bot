@@ -19,7 +19,6 @@ export class AppComponent {
     user$ = this.apiService.getTelegramUser();
     telegramData = this.apiService.telegramData();
 
-
     constructor() {
     }
 
