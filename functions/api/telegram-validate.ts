@@ -9,7 +9,7 @@ function transformInitData(initData: string): TransformInitData {
 
 async function generateHex(data: TransformInitData, botToken: string): Promise<string> {
     const encoder = new TextEncoder();
-    const checkString = Object.keys(data)
+    const checkString = await Object.keys(data)
         .filter((key) => key !== 'hash')
         .map((key) => `${key}=${data[key]}`)
         .sort()
@@ -17,7 +17,7 @@ async function generateHex(data: TransformInitData, botToken: string): Promise<s
     const secretKey = await crypto.subtle.importKey(
         'raw',
         encoder.encode('WebAppData'),
-        { name: 'HMAC', hash: 'SHA-256' },
+        {name: 'HMAC', hash: 'SHA-256'},
         true,
         ['sign']
     );
@@ -29,7 +29,7 @@ async function generateHex(data: TransformInitData, botToken: string): Promise<s
     const signatureKey = await crypto.subtle.importKey(
         'raw',
         secret,
-        { name: 'HMAC', hash: 'SHA-256' },
+        {name: 'HMAC', hash: 'SHA-256'},
         true,
         ['sign']
     );
@@ -39,27 +39,31 @@ async function generateHex(data: TransformInitData, botToken: string): Promise<s
         encoder.encode(checkString)
     );
 
-    return [...new Uint8Array(signature)]
+    const hex = [...new Uint8Array(signature)]
         .map((b) => b.toString(16).padStart(2, '0'))
         .join('');
 
-
+    return hex;
 }
 
-export async function onRequestPost({ env, request }: any) {
+export async function onRequestPost({env, request}: any) {
+    console.log(env,1111, request,2222)
     const payload = await request.json();
     const dataCheckString = payload.hash;
     const data = transformInitData(dataCheckString);
     const botToken = env.BOT_TOKEN;
 
     const hex = await generateHex(data, botToken);
-    if(data['hash'] === hex) {
+    if (data['hash'] === hex) {
         // Save user to database..
         // Get some data for specific user, etc.
-        const json = JSON.stringify({ message: 'success' });
-        return new Response(json, { status: 200 });
+        const json = JSON.stringify({message: 'success'});
+        return new Response(json, {status: 200});
+    }else {
+
+
+    const json = JSON.stringify({message: 'not authorized'});
+    return new Response(json, {status: 401});
     }
 
-    const json = JSON.stringify({ message: 'not authorized' });
-    return new Response(json, { status: 401 });
 }
